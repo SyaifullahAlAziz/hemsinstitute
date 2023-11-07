@@ -1,0 +1,73 @@
+@extends('admin.layout.app')
+
+@section('content')
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Form Edit Features</h1>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <div class="container-fluid">
+        <div class="card">
+            
+            <form class="form-horizontal" action="{{ route('update-features', $karir->id) }}" method="POST"
+                enctype="multipart/form-data">
+                @csrf
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Nama Lengkap : <span style="color:red;">*</span></label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control @error('judul') {{ 'is-invalid' }} @enderror"
+                                        name="judul" value="{{ old('judul') ?? ($karir->judul ?? '') }}"
+                                        @if (isset($karir))  @endif>
+                                    @error('judul')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Deskripsi <span style="color:red;">*</span></label>
+                                <div class="input-group">
+                                    <input type="text" required
+                                        class="form-control @error('isi') {{ 'is-invalid' }} @enderror" name="isi"
+                                        value="{{ old('isi') ?? ($karir->isi ?? '') }}">
+                                    @error('isi')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="border-top">
+                    <div class="card-body">
+                        <button type="submit" class="btn btn-success">Simpan</button>
+                        <button class="btn btn-secondary" type="button" onclick="window.history.back()">Batal</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.0.1/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#detail'))
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+@endsection
